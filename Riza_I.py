@@ -1,6 +1,6 @@
 import discord
 import yaml
-from NLT_Lib import *
+from NLT import *
 
 print(test())
 
@@ -34,7 +34,7 @@ async def on_message(message):
     except:
         print(f'[{message.author.name}(tell)]: {message.content}')
 
-    recv(message)
+    recv_convers(message)
 
 
 client.run(secret_data['token']['Riza_I'])
