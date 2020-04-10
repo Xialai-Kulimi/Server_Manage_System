@@ -18,6 +18,8 @@ status_list:
   - 運作良好
   - 停止運作
   - 不清楚
+  - 是
+  - 否
 
 status_refer_dict:
   正常: 運作良好
@@ -26,3 +28,6 @@ status_refer_dict:
   i Dont know: 不清楚
   窩不知道: 不清楚
   掛掉了: 停止運作
+  對: 是
+  不對: 否
+  不是: 否

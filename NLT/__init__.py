@@ -12,6 +12,9 @@ class NLTCore:
 
 
 def recv_convers(msg):
+    #
+    # 1. 解析訊息
+    #
     with open('NL.yaml', 'br') as stream:
         nl_data = yaml.load(stream)
 
@@ -54,5 +57,11 @@ def recv_convers(msg):
             break
     else:
         return 1, 'Unknown status'
+    #
+    # 2. 反應
+    #
+    with open('memory', 'br') as stream:
+        memory_data = yaml.load(stream)
 
-    # print(msg_type, msg_object, msg_status)
+    if msg_type == '表達':
+        memory_data
