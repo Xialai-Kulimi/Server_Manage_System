@@ -34,7 +34,7 @@ async def on_message(message):
     except:
         print(f'[{message.author.name}(tell)]: {message.content}')
 
-    recv_convers(message)
+    print(recv_convers(message))
 
 
 client.run(secret_data['token']['Riza_I'])
