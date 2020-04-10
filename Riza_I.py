@@ -1,8 +1,8 @@
 import discord
 import yaml
-from NLT import *
+import NLT
 
-print(test())
+print(NLT.test())
 
 with open('env.secret', 'r') as stream:
     secret_data = yaml.load(stream)
@@ -10,7 +10,6 @@ with open('env.secret', 'r') as stream:
 client = discord.Client()
 
 print(secret_data)
-# main_channel = 0
 
 
 @client.event
@@ -34,7 +33,9 @@ async def on_message(message):
     except:
         print(f'[{message.author.name}(tell)]: {message.content}')
 
-    print(recv_convers(message))
+    print(NLT.recv_convers(message))
+
+    await main_channel.send(NLT.recv_convers(message))
 
 
 client.run(secret_data['token']['Riza_I'])
