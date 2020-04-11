@@ -1,22 +1,28 @@
-import asyncio
-import threading
-
-loop = asyncio.get_event_loop()  # 建立一個Event Loop
-
-
-async def example():  # 定義一個協程
-    print("Start example coroutin.")
-    # await asyncio.sleep(1)  # 中斷協程一秒
-    print("Finish example coroutin.")
-
-
-def do_loop():
+def consumer():
+    status = True
     while True:
-        loop.run_until_complete(example())
+        n = yield status
+        print("我拿到了{}!".format(n), end='\r')
+        if n == 3:
+            status = False
 
 
-do_loop_thread = threading.Thread(target=do_loop)
-do_loop_thread.start()
-print(213213213513513132132135151)
+def producer(consumer):
+    n = 5
+    while n > 0:
+        print(n, end='\r')
+        # yield给主程序返回消费者的状态
+        yield consumer.send(n)
+        n -= -1
 
 
+if __name__ == '__main__':
+    c = consumer()
+    c.send(None)
+    p = producer(c)
+    for status in p:
+        print(status, p, end='\r')
+        if not status:
+            print("我只要3,4,5就行啦")
+            break
+    print("程序结束")
