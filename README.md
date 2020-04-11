@@ -127,4 +127,4 @@ status_refer_dict = {}
 
 type:
 - 表達
-- 檢查 arg4 ('檢查', msg_object, msg_status, reply=channel)
+- 檢查 arg4 ('檢查', msg_object, msg_status, reply=channel_id)

@@ -2,23 +2,23 @@ import yaml
 import asyncio
 
 
-async def bot_run():
-    while True:
-        # print('98')
-        await asyncio.sleep(0.5)
-        with open('memory_lib.yaml', 'br') as stream:  # Load memory
-            memory_data = yaml.load(stream, Loader=yaml.FullLoader)
+async def bot_run(client):
+    await asyncio.sleep(0.5)
+    with open('memory_lib.yaml', 'br') as stream:  # Load memory
+        memory_data = yaml.load(stream, Loader=yaml.FullLoader)
 
-        if len(memory_data['task']) > 1:
-            # Do task below
-            now_task = memory_data['task'][1]  # [0] is null
-            print(memory_data['task'])
-            if now_task[0] == '表達':
-                await now_task[3].send(f'{now_task[0]}，{now_task[1]}，{now_task[2]}')
-                memory_data['task'].remove(now_task)  # task compete, remove it
+    if len(memory_data['task']) > 1:
+        # Do task below
+        now_task = memory_data['task'][1]  # [0] is null
+        print(memory_data['task'])
+        if now_task[0] == '表達':
+            send_channel = client.get_channel(now_task[3])
 
-            with open('memory_lib.yaml', 'w', encoding='utf8') as stream:  # Save memory
-                yaml.dump(memory_data, stream, default_flow_style=False, encoding='utf-8', allow_unicode=True)
+            await send_channel.send(f'{now_task[0]}，{now_task[1]}，{now_task[2]}')
+            memory_data['task'].remove(now_task)  # task compete, remove it
+
+        with open('memory_lib.yaml', 'w', encoding='utf8') as stream:  # Save memory
+            yaml.dump(memory_data, stream, default_flow_style=False, encoding='utf-8', allow_unicode=True)
 
 
 def test():
@@ -31,12 +31,14 @@ class NLTCore:
         print(self.name)
 
 
-def recv_convers(msg):
+def recv_convers(msg, client):
     #
     # 1. 解析訊息
     #
     with open('NL.yaml', 'br') as stream:
         nl_data = yaml.load(stream, Loader=yaml.FullLoader)
+
+    msg_channel_id = msg.channel.id
 
     author = msg.author.name
     # print(author)
@@ -89,7 +91,7 @@ def recv_convers(msg):
         memory_data['task'].append(['檢查', msg_object, msg_status, True])
 
     elif msg_type == '提問':
-        memory_data['task'].append(['表達', author, '是'])
+        memory_data['task'].append(['表達', author, '是', msg_channel_id])
         try:
             if memory_data['memory'][msg_object] != msg_status:
                 memory_data['task'][-1][2] = '否'
