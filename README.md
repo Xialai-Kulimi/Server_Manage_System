@@ -115,8 +115,6 @@ status_list = ['提問', '表達']
 status_refer_dict = {}
 ```
 
-
-
 ## bot.recv_convers():  # v0.1
 
 1. 解析訊息
@@ -124,3 +122,9 @@ status_refer_dict = {}
     2. 去除虛字及符號
 2. 反應
     1. 如更新記憶、增加任務等
+
+## task
+
+type:
+- 表達
+- 檢查 arg4 ('檢查', msg_object, msg_status, reply=True)
