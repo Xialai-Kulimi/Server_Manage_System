@@ -17,13 +17,9 @@ loop = asyncio.get_event_loop()
 
 @client.event
 async def on_ready():
-    global main_channel
     print(f'{client.user} on ready.')
-    for guild in client.guilds:
-        for channel in guild.channels:
-            if channel.id == secret_data['channels']['main']:
-                main_channel = channel
-    await main_channel.send('Riza_I online.')
+    admin_kulimi = client.get_user(secret_data['admin']['kulimi'])
+    await admin_kulimi.send('Riza_I online.')
     # thread_do_loop = threading.Thread(target=do_loop)
     # thread_do_loop.start()
 
