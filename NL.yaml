@@ -13,6 +13,8 @@ object_refer_dict:
   自動更新程式: autoPull
   你: Riza
   Riza_I: Riza
+  ItisCaleb: Caleb
+  Itiscaleb: Caleb
 
 status_list:
   - 運作良好
@@ -31,3 +33,4 @@ status_refer_dict:
   對: 是
   不對: 否
   不是: 否
+  None: 否
