@@ -34,3 +34,19 @@ status_refer_dict:
   不對: 否
   不是: 否
   None: 否
+
+none_mean_list:
+  - 喔
+  - 欸
+  - 恩
+  - 痾
+  - 阿
+  - 呃
+  - ㄚ
+  - ㄛ
+  - ㄐ
+
+question_word:
+  - ?
+  - 嗎
+  - ㄇ

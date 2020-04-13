@@ -16,6 +16,9 @@ async def bot_run(client):
 
             await send_channel.send(f'{now_task[0]}，{now_task[1]}，{now_task[2]}')
             memory_data['task'].remove(now_task)  # task compete, remove it
+        elif now_task[0] == '檢查':
+
+            memory_data['task'].append(['表達', now_task[1], '是', now_task[3]])
 
         with open('memory_lib.yaml', 'w', encoding='utf8') as stream:  # Save memory
             yaml.dump(memory_data, stream, default_flow_style=False, encoding='utf-8', allow_unicode=True)
@@ -41,17 +44,19 @@ def recv_convers(msg, client):
     msg_channel_id = msg.channel.id
 
     author = msg.author.name
-    # print(author)
 
-    # for object_name in nl_data['object_list']:  # Refer author
-    #     author = author.replace(object_name, nl_data['object_refer_dict'][object_name])
+    msg = msg.content
 
-    msg = msg.content.split('，')
+    for i in nl_data['none_mean_list']:
+        msg = msg.replace(i, '')
 
-    if len(msg) != 3:
-        return 1, 'Bad format'
+    for i in nl_data['question_word']:
+        msg = msg.replace(i, '')
 
-    # print(msg)
+    msg = msg.split('，')
+
+    # if len(msg) != 3:
+    #     return 1, 'Bad format'
 
     for the_type in nl_data['type_list']:
         if the_type == msg[0]:
@@ -94,9 +99,10 @@ def recv_convers(msg, client):
         memory_data['task'].append(['表達', author, '是', msg_channel_id])
         try:
             if memory_data['memory'][msg_object] != msg_status:
-                memory_data['task'][-1][2] = '否'
+                memory_data['task'][-1][2] = '不清楚'
         except:
             memory_data['task'][-1][2] = '不清楚'
+            memory_data['task'].append(['檢查', msg_object, author, msg_channel_id])
 
     with open('memory_lib.yaml', 'w', encoding='utf8') as stream:
         yaml.dump(memory_data, stream, default_flow_style=False, encoding='utf-8', allow_unicode=True)
