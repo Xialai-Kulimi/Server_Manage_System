@@ -96,7 +96,7 @@ Riza_I
 - Watch autoPull
 
 
-## Conversation protocol v0.2
+## Conversation protocol v0.3
 
 對話由二至三部分組成，由全型逗號分開
 
@@ -113,6 +113,15 @@ obhect_refer_dict = {'自動更新程式': 'autoPull', '我': 'Riza', 'Riza_I': 
 ```
 status_list = ['提問', '表達']
 status_refer_dict = {}
+```
+
+### 第二類別
+
+類型，指令
+
+格式
+```
+指令，[物件]，[動作]
 ```
 
 ## bot.recv_convers():  # v0.1

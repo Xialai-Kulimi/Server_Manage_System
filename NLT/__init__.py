@@ -1,6 +1,9 @@
 import yaml
 import asyncio
 
+def test():
+    return 'NLT working great.'
+
 
 async def bot_run(client):
     await asyncio.sleep(0.5)
@@ -24,8 +27,8 @@ async def bot_run(client):
             yaml.dump(memory_data, stream, default_flow_style=False, encoding='utf-8', allow_unicode=True)
 
 
-def test():
-    return 'NLT working great.'
+def generated_command(msg, client):
+    pass
 
 
 class NLTCore:
@@ -41,11 +44,16 @@ def recv_convers(msg, client):
     with open('NL.yaml', 'br') as stream:
         nl_data = yaml.load(stream, Loader=yaml.FullLoader)
 
+    orin_msg = msg
+
     msg_channel_id = msg.channel.id
 
     author = msg.author.name
 
     msg = msg.content
+
+    if msg.split('，')[0] == '指令':
+        generate_command(msg, client)
 
     for i in nl_data['none_mean_list']:
         msg = msg.replace(i, '')

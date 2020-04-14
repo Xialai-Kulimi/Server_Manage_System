@@ -1,6 +1,7 @@
 type_list:
   - 提問
   - 表達
+  - 指令
 
 object_list:
   - autoPull
