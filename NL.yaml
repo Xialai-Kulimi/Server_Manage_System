@@ -51,3 +51,6 @@ question_word:
   - ?
   - 嗎
   - ㄇ
+
+command_keyword:
+  enter: Enter command mode

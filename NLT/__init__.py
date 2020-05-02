@@ -1,8 +1,22 @@
 import yaml
 import asyncio
+import os
+
+
+now_mode = 'Normal'
+
 
 def test():
     return 'NLT working great.'
+
+
+class ImagineObject:
+    def __int__(self, type, name):
+        pass
+
+
+def generate_command(msg, client):
+    pass
 
 
 async def bot_run(client):
@@ -38,19 +52,42 @@ class NLTCore:
 
 
 def recv_convers(msg, client):
+    global now_mode
     #
     # 1. 解析訊息
     #
+
     with open('NL.yaml', 'br') as stream:
         nl_data = yaml.load(stream, Loader=yaml.FullLoader)
+
+    if now_mode == 'Command':
+        if msg.content == 'exit':
+            now_mode = 'Normal'
+            await msg.channel.send('[Command mode terminated.]')
+
+        msg.content = msg.content.split(' ')
+
+        if msg.content[0] == 'update':
+            if msg.content[1] == 'Riza_I':
+                try:
+                    os.system("git pull")
+                except Exception as e:
+                    await msg.channel.send(f'[Error] Error occurred, debug information:\n{e}')
+
+        return
 
     orin_msg = msg
 
     msg_channel_id = msg.channel.id
-
+    msg_channel = msg.channel
     author = msg.author.name
 
     msg = msg.content
+
+    if msg == nl_data['command_keyword']['enter']:
+        now_mode = 'Command'
+        await msg_channel.send('[Successfully enter command mode.]')
+        return
 
     if msg.split('，')[0] == '指令':
         generate_command(msg, client)
