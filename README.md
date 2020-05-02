@@ -132,6 +132,10 @@ status_refer_dict = {}
 2. 反應
     1. 如更新記憶、增加任務等
 
+## ImagineObject() `class`
+.type
+.name
+
 ## task
 
 type:
